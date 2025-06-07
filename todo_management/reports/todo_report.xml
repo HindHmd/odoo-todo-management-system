@@ -1,0 +1,81 @@
+<odoo>
+    <record id="todo_record" model="ir.actions.report">
+        <field name="name">todo record</field>
+        <field name="model">todo.task</field>
+        <field name="report_type">qweb-html</field>
+        <field name="binding_model_id" ref="model_todo_task" />
+        <field name="binding_type">report</field>
+        <field name="report_name">todo_management.todo_record_template</field>
+
+    </record>
+    <template id="todo_record_template">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <t t-foreach="docs" t-as="o">
+                    <h1>Todo Task report</h1>
+                    <style>
+                        table{
+                        width:100%;
+                        border: 1px solid #b12a14;
+                        border-collapse:collapse;
+                        padding: 5px;
+                        }
+                        table th {
+                        border: 1px solid #b12a14;
+                        padding: 5px;
+                        text-align : center;
+
+                        }
+                        table td{
+                        border: 1px solid #b12a14;
+                        padding: 5px;
+                        text-align : center;
+                        background :#ffffff;
+                        color: #313838
+                        }
+                    </style>
+                    <table>
+                        <thead>
+                            <th colspane="4"> general information</th>
+                        </thead>
+                        <tbody>
+                            <td> Name</td>
+                             <td> <t t-esc="o.task_name" /></td>
+                             <td>Description</td>
+                             <td><t t-esc="o.description"/> </td>
+                        </tbody>
+                    </table>
+                     <table>
+                        <thead>
+                            <th colspane="4"> Additional information</th>
+                        </thead>
+                        <tbody>
+                            <td> Tasker</td>
+                             <td> <t t-esc="o.assign_to_id" /></td>
+                             <td>time</td>
+                             <td><t t-esc="o.estimated_time"/> </td>
+                        </tbody>
+                    </table>
+                    <br/>
+                     <table>
+                        <thead>
+                            <th>name</th>
+                            <th>description</th>
+                            <th>time(h)</th>
+                        </thead>
+                        <tbody>
+                          <t t-foreach="o.line_ids" t-as="line">
+                              <tr>
+                                  <td> <t t-esc="line.name" /></td>
+                                  <td> <t t-esc="line.description" /></td>
+                                  <td> <t t-esc="line.time" /></td>
+                              </tr>
+                          </t>
+                        </tbody>
+                    </table>
+                </t>
+            </t>
+        </t>
+
+    </template>
+</odoo>
